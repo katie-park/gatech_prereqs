@@ -1,10 +1,9 @@
 from lxml import html
 import requests
-# https://docs.python-guide.org/scenarios/scrape/
 
 # Returns a dictionary with course abbreviations as keys and subsequent full names as values. (e.g. 'ACCT': 'Accounting')
 def get_courses():
-    page = requests.get('http://www.catalog.gatech.edu/coursesaz/')
+    page = requests.get('http://www.catalog.gatech.edu/coursesaz/') # https://docs.python-guide.org/scenarios/scrape/
     tree = html.fromstring(page.content)
     courses = tree.xpath("//div[@id='atozindex']/ul/li/a/text()") # https://www.w3schools.com/xml/xpath_syntax.asp
     return {i[i.index('(')+1:len(i)-1]: i[0:i.index('(')] for i in courses} # format list into dictionary
